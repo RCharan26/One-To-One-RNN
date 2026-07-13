@@ -268,7 +268,7 @@ def main():
     # -------------------------------------------------------------
     # Sidebar
     # -------------------------------------------------------------
-    st.sidebar.image("assets/logo.png" if os.path.exists("assets/logo.png") else Image.new('RGB', (1,1)), use_column_width=True)
+    st.sidebar.image("assets/logo.png" if os.path.exists("assets/logo.png") else Image.new('RGB', (1,1)), use_container_width=True)
     st.sidebar.markdown("<h2 style='text-align: center; margin-top: 0;'>Deep Classifier</h2>", unsafe_allow_html=True)
     st.sidebar.markdown("---")
     
@@ -313,11 +313,11 @@ def main():
     if page == "🏠 Home (Prediction)":
         # Banner image
         if os.path.exists("assets/banner.png"):
-            st.image("assets/banner.png", use_column_width=True)
+            st.image("assets/banner.png", use_container_width=True)
         else:
             utils.init_assets()
             if os.path.exists("assets/banner.png"):
-                st.image("assets/banner.png", use_column_width=True)
+                st.image("assets/banner.png", use_container_width=True)
                 
         st.markdown('<div class="gradient-title">🍕 Food Category Recognition</div>', unsafe_allow_html=True)
         st.markdown('<div class="subtitle-desc">Classify images instantly into 11 food classes using MobileNetV2 Deep Learning transfer network.</div>', unsafe_allow_html=True)
@@ -340,7 +340,7 @@ def main():
                 st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.subheader("Input Image Preview")
                 pil_image = Image.open(uploaded_file)
-                st.image(pil_image, use_column_width=True, caption=uploaded_file.name)
+                st.image(pil_image, use_container_width=True, caption=uploaded_file.name)
                 st.markdown('</div>', unsafe_allow_html=True)
                 
         with col2:
@@ -503,7 +503,7 @@ TOP 3 CLASSES DETAILS:
                     # Show thumbnail preview in grids
                     col_idx = idx % 3
                     with cols[col_idx]:
-                        st.image(pil_img, use_column_width=True)
+                        st.image(pil_img, use_container_width=True)
                         st.markdown(f"**{file.name}**  \n🏷️ Class: **{winning_class}**  \n✨ Confidence: `{winning_conf:.1f}%`  \n---")
                         
                     # Save to global history
@@ -571,7 +571,7 @@ TOP 3 CLASSES DETAILS:
                 st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.subheader("Accuracy Graph")
                 if os.path.exists("graphs/accuracy.png"):
-                    st.image("graphs/accuracy.png", use_column_width=True)
+                    st.image("graphs/accuracy.png", use_container_width=True)
                 else:
                     st.info("Accuracy plot file (graphs/accuracy.png) not found.")
                 st.markdown('</div>', unsafe_allow_html=True)
@@ -580,7 +580,7 @@ TOP 3 CLASSES DETAILS:
                 st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.subheader("Loss Graph")
                 if os.path.exists("graphs/loss.png"):
-                    st.image("graphs/loss.png", use_column_width=True)
+                    st.image("graphs/loss.png", use_container_width=True)
                 else:
                     st.info("Loss plot file (graphs/loss.png) not found.")
                 st.markdown('</div>', unsafe_allow_html=True)
@@ -590,7 +590,7 @@ TOP 3 CLASSES DETAILS:
                 st.markdown('<div class="glass-card">', unsafe_allow_html=True)
                 st.subheader("Confusion Matrix Heatmap")
                 if os.path.exists("graphs/confusion_matrix.png"):
-                    st.image("graphs/confusion_matrix.png", use_column_width=True)
+                    st.image("graphs/confusion_matrix.png", use_container_width=True)
                 else:
                     st.info("Confusion matrix file (graphs/confusion_matrix.png) not found.")
                 st.markdown('</div>', unsafe_allow_html=True)

@@ -1,8 +1,6 @@
 import os
-import shutil
 import pickle
 import random
-import glob
 import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
@@ -229,9 +227,8 @@ def plot_confusion_matrix_heatmap(y_true, y_pred, classes, save_dir):
 
 def init_assets():
     """
-    Detects generated images (banner and logo) in the brain/artifacts folder
-    and copies them to the workspace assets folder.
-    Creates default beautiful images if the files are not found.
+    Creates default placeholder banner and logo images if they don't already exist.
+    Safe to call on any deployment environment (local, Render, etc.).
     """
     assets_dir = 'assets'
     os.makedirs(assets_dir, exist_ok=True)
@@ -239,22 +236,8 @@ def init_assets():
     banner_dest = os.path.join(assets_dir, 'banner.png')
     logo_dest = os.path.join(assets_dir, 'logo.png')
     
-    # Brain artifacts directory path
-    brain_dir = r"C:\Users\pmrdr\.gemini\antigravity-ide\brain\83ed1b58-bf7f-4cda-97b6-56e37eafafae"
-    
     # 1. Handle Banner
-    banner_found = False
-    if os.path.exists(brain_dir):
-        banners = glob.glob(os.path.join(brain_dir, 'banner_image_*.png'))
-        if banners:
-            try:
-                shutil.copy(banners[0], banner_dest)
-                banner_found = True
-                print(f"Copied banner from {banners[0]} to {banner_dest}")
-            except Exception as e:
-                print(f"Error copying banner: {e}")
-                
-    if not banner_found and not os.path.exists(banner_dest):
+    if not os.path.exists(banner_dest):
         # Create a beautiful gradient placeholder banner
         img = Image.new('RGB', (1200, 400), color='#1e1b4b')
         draw = ImageDraw.Draw(img)
@@ -269,25 +252,14 @@ def init_assets():
         draw.ellipse([800, -100, 1300, 400], fill=None, outline='#ec4899', width=3)
         draw.ellipse([750, -150, 1350, 450], fill=None, outline='#8b5cf6', width=2)
         
-        # Draw some text if font is not loaded
+        # Draw some text
         draw.text((100, 160), "🍕 Food Category Recognition", fill="#ffffff")
         draw.text((100, 220), "TensorFlow + MobileNetV2 + Streamlit Pipeline", fill="#a78bfa")
         img.save(banner_dest)
         print(f"Created default placeholder banner at {banner_dest}")
 
     # 2. Handle Logo
-    logo_found = False
-    if os.path.exists(brain_dir):
-        logos = glob.glob(os.path.join(brain_dir, 'logo_image_*.png'))
-        if logos:
-            try:
-                shutil.copy(logos[0], logo_dest)
-                logo_found = True
-                print(f"Copied logo from {logos[0]} to {logo_dest}")
-            except Exception as e:
-                print(f"Error copying logo: {e}")
-                
-    if not logo_found and not os.path.exists(logo_dest):
+    if not os.path.exists(logo_dest):
         # Create a beautiful logo placeholder
         img = Image.new('RGB', (200, 200), color='#0f172a')
         draw = ImageDraw.Draw(img)
@@ -300,3 +272,4 @@ def init_assets():
         draw.ellipse([110, 105, 120, 115], fill='#ef4444')
         img.save(logo_dest)
         print(f"Created default placeholder logo at {logo_dest}")
+
